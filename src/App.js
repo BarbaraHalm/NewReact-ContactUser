@@ -41,13 +41,12 @@ setUsers(
 )
 }
 
-const DeleteUser = (id,deleteduser) => {
+const DeleteUser = (id) => {
 setUsers(
   users.filter((user)=> {
     if (user.id !== id) {
-      return deleteduser;
+      return user;
     } 
-    return user;
   })
 )
 
