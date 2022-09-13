@@ -30,26 +30,24 @@ const AddNewUser = (data) => {
   console.log(AddNewUser);
 }
 
-const EditUser = (id,newData) => {
+const EditUser = (id,newedit) => {
 setUsers(
   users.map((wantedUser)=> {
     if (wantedUser.id === id) {
-      return newData;
+      return newedit;
     }
     return wantedUser;
   })
 )
 }
 
-
-
-
-const DeleteUser = (id) => {
+const DeleteUser = (id,deleteduser) => {
 setUsers(
   users.filter((user)=> {
     if (user.id !== id) {
-      return user
-    }
+      return deleteduser;
+    } 
+    return user;
   })
 )
 
