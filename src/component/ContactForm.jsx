@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import {useDispatch,connect} from "react-redux";
+import {AddContact} from "../Action/ContactAction";
+import {v4 as uuid} from "uuid"
 
 
 const ContactForm = (props) => {
     const [name, setName] = useState("");
     const [phonenumber, setPhonenumber] = useState("");
     const [location, setLocation] = useState("");
-
-    const HandleClick = (e) => {
+    const dispatch = useDispatch()
+      const HandleClick = (e) => {
         e.preventDefault();
-            props.addUser({name,phonenumber,location})
+
+        dispatch(AddContact({id:uuid(),name, phonenumber, location}))
+            //props.addContact({name,phonenumber,location})
+            console.log ({id:uuid(), name,  phonenumber, location});
         setName("");
         setLocation("");
         setPhonenumber("");
@@ -49,5 +55,8 @@ const ContactForm = (props) => {
         </div>
     );
 }
+const mapDispatchToProps =  {
+    addNewContact: AddContact,
+  };
 
-export default ContactForm;
+export default connect (null, mapDispatchToProps)(ContactForm);

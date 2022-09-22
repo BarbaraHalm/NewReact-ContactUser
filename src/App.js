@@ -5,23 +5,7 @@ import  Contact from "./component/Contact";
 import ContactForm from './component/ContactForm';
 
 function App() {
-  const [users, setUsers] = useState([
-    { 
-      name: "Kelvin ", 
-      phonenumber: " +233 45(345)-3454",
-      location: "East-Legon", id: "17373788" 
-    },
-    { 
-      name: "Dela",
-      phonenumber: " +44 (345)564-7439 ",
-      location: "Brimingham ",
-      id: "19929920" },
-    { 
-      name: " Orison",
-      phonenumber: "+1 (546)725-0289",
-      location: "College-Park ",
-      id: "uqawquei" },
-  ]);
+  const [users, setUsers] = useState([]);
 
 
 const AddNewUser = (data) => {
@@ -32,21 +16,22 @@ const AddNewUser = (data) => {
 
 const EditUser = (id,newedit) => {
 setUsers(
-  users.map((wantedUser)=> {
-    if (wantedUser.id === id) {
+  users.map((data)=> {
+    if (data.id === id) {
       return newedit;
     }
-    return wantedUser;
+    return data;
   })
 )
 }
 
-const DeleteUser = (id) => {
+const DeleteUser = (id,deletedcontact) => {
 setUsers(
-  users.filter((user)=> {
-    if (user.id !== id) {
-      return user;
-    } 
+  users.filter((data)=> {
+    if (data.id !== id) {
+      return deletedcontact
+    }
+    return data;
   })
 )
 
