@@ -9,6 +9,7 @@ const ContactForm = (props) => {
     const [name, setName] = useState("");
     const [phonenumber, setPhonenumber] = useState("");
     const [location, setLocation] = useState("");
+    
     const dispatch = useDispatch()
       const HandleClick = (e) => {
         e.preventDefault();

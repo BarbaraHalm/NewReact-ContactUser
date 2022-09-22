@@ -15,10 +15,7 @@ const ContactUsers = (props) => {
     }
 
 
-    // const HandleDelete =(e)=> {
-    //   e.preventDefault();
-    // props.deleteUser(props.userInfo.id)
-    // }
+    
     return (
         <>
        <Modal show={show} onHide={handleClose} animation={false}>

@@ -1,17 +1,19 @@
 import React from 'react';
 import ContactUsers from "./ContactUsers";
 import { Container,Row } from 'react-bootstrap';
-import { connect } from "react-redux"
+import { connect } from "react-redux";
+
+
 const Contact = (props) => {
     return (
         <div>
             <h3>CONTACT LIST</h3>
     <Container>
         <Row md={3}>
-        {props.user.map((user,index)=> {
+        {props.contactsData.map((item)=> {
         return (
-            <div key={index}>
-            <ContactUsers userData={user}
+            <div key={item.id}>
+            <ContactUsers userData={item}
              editUser={props.editUser}
              delete={props.delete}/>
             </div>
@@ -23,6 +25,7 @@ const Contact = (props) => {
     );
 }
 const mapStateToProps = (state)=> ({
-    user: state.users
-})
+    contactsData: state.contacts,
+}
+)
 export default connect(mapStateToProps)(Contact);
