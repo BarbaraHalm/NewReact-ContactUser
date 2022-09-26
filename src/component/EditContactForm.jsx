@@ -1,14 +1,20 @@
 import React, {useState} from 'react';
 import { Form, Button } from 'react-bootstrap';
+import {useDispatch} from 'react-redux';
+import {editContact} from '../Action/ContactAction';
+
+
 
 const EditContactForm = (props) => {
     const [name, setName] = useState(props.prefill.name);
     const [phonenumber, setPhonenumber] = useState(props.prefill.phonenumber);
     const [location, setLocation] = useState(props.prefill.location);
+    const dispatch = useDispatch()
 
     const HandleEdit =(e)=> {
         e.preventDefault();
-        props.editUser(props.prefill.id,{ name, phonenumber, location });
+        //props.editUser(props.prefill.id,{ name, phonenumber, location });
+        dispatch(editContact({id:props.prefill.id,name,phonenumber,location}))
         setName("");
         setPhonenumber("");
         setLocation("")
@@ -50,4 +56,5 @@ const EditContactForm = (props) => {
     );
 }
 
-export default EditContactForm;
+
+export default EditContactForm ;

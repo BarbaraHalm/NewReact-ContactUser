@@ -2,6 +2,8 @@ import React ,{useState}from 'react';
 import { Card,Col,Button } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap'
 import EditContactForm from './EditContactForm';
+import {connect} from 'react-redux';
+import {deleteContact} from '../Action/ContactAction'
 
 const ContactUsers = (props) => {
     const [show, setShow] = useState(false);
@@ -11,7 +13,7 @@ const ContactUsers = (props) => {
 
     const HandleDelete = (e) => {
       e.preventDefault();
-      props.delete(props.userData.id)
+      props.deleteContact(props.userData.id)
     }
 
 
@@ -50,5 +52,8 @@ const ContactUsers = (props) => {
     </>
     );
 }
+const mapDispatchToProps = {
+  deleteContact,
+}
 
-export default ContactUsers;
+export default connect (null, mapDispatchToProps) (ContactUsers)

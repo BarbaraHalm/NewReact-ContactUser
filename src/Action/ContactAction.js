@@ -4,3 +4,19 @@ export const AddContact =(newContact)=> {
         payload:newContact
     }
 }
+
+export const editContact =(updatedContact)=> {
+    return{
+        type:"EDIT_CONTACT",
+        payload: {updatedContact}
+    }
+} 
+
+
+export const deleteContact =(id)=> {
+    return{
+        type:"DELETE_CONTACT",
+        payload: id
+    }
+}
+
