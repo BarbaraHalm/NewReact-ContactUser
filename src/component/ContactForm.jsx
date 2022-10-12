@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import {useDispatch,connect} from "react-redux";
 import {AddContact} from "../Action/ContactAction";
-import {v4 as uuid} from "uuid"
+import {v4 as uuid} from "uuid"; 
+import { collection, addDoc } from "firebase/firestore"; 
+import {db} from "../Firebase/ConfigContact";
 
 
 const ContactForm = (props) => {
@@ -11,12 +13,17 @@ const ContactForm = (props) => {
     const [location, setLocation] = useState("");
     
     const dispatch = useDispatch()
-      const HandleClick = (e) => {
+      const  HandleSubmit = async(e) => {
         e.preventDefault();
-
         dispatch(AddContact({id:uuid(),name, phonenumber, location}))
             //props.addContact({name,phonenumber,location})
             console.log ({id:uuid(), name,  phonenumber, location});
+            const docRef = await addDoc(collection(db, "ContactUser"), {
+                id:uuid(), 
+                name, 
+                phonenumber, 
+                location,
+              });
         setName("");
         setLocation("");
         setPhonenumber("");
@@ -49,7 +56,8 @@ const ContactForm = (props) => {
                     }} />
                 </Form.Group>
 
-                <Button style={{width: "100px", marginRight:"30px", marginLeft:"50px", fontSize:"15px" }} variant="primary" type="submit" onClick={HandleClick}>
+                <Button style={{width: "100px", marginRight:"30px", marginLeft:"50px", fontSize:"15px" }} variant="primary"
+                 type="submit" onClick={HandleSubmit}>
                     Submit
                 </Button>
             </Form>
