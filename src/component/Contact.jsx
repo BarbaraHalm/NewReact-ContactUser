@@ -13,7 +13,8 @@ const Contact = (props) => {
         {props.contactsData.map((item)=> {
         return (
             <div key={item.id}>
-            <ContactUsers userData={item}
+            <ContactUsers 
+            userData={item}
              editUser={props.editUser}
              delete={props.delete}/>
             </div>

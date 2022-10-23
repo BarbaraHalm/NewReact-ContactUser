@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import {useDispatch,connect} from "react-redux";
+import {connect} from "react-redux";
 import {AddContact} from "../Action/ContactAction";
 import {v4 as uuid} from "uuid"; 
-import { collection, addDoc } from "firebase/firestore"; 
+import { doc, setDoc } from "firebase/firestore"; 
 import {db} from "../Firebase/ConfigContact";
 
 
@@ -11,23 +11,24 @@ const ContactForm = (props) => {
     const [name, setName] = useState("");
     const [phonenumber, setPhonenumber] = useState("");
     const [location, setLocation] = useState("");
-    
-    const dispatch = useDispatch()
+
       const  HandleSubmit = async(e) => {
         e.preventDefault();
-        dispatch(AddContact({id:uuid(),name, phonenumber, location}))
+        //dispatch(AddContact({id:uuid(),name, phonenumber, location}))
             //props.addContact({name,phonenumber,location})
-            console.log ({id:uuid(), name,  phonenumber, location});
-            const docRef = await addDoc(collection(db, "ContactUser"), {
-                id:uuid(), 
-                name, 
-                phonenumber, 
-                location,
-              });
+           
+        let newContacts={id:uuid(),name, phonenumber, location};
+           console.log ({id:uuid(), name,  phonenumber, location});
+           try{
+           await setDoc(doc(db, "Contact-User",newContacts.id), newContacts);
+           }catch(e){
+           console.log(e);
+        }
+           
         setName("");
         setLocation("");
         setPhonenumber("");
-    }
+    };
 
 
 
