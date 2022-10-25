@@ -3,16 +3,17 @@ import { useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap'
 import  Contact from "./component/Contact";
 import ContactForm from './component/ContactForm';
-import { collection, query,  onSnapshot } from "firebase/firestore";
+import { collection, query,  onSnapshot,orderBy } from "firebase/firestore";
 import {db} from "./Firebase/ConfigContact";
 import { AddContact } from './Action/ContactAction';
 import {useDispatch} from 'react-redux';
+ 
 
 function App() {
   const dispatch= useDispatch();
  useEffect(()=> {
   const readInfo= async()=>{
-    const q = query(collection(db, "Contact-User"));
+    const q = query(collection(db, "Contact-form"), orderBy("timestamp","desc"));
      onSnapshot(q, (querySnapshot) => {
       const Contacts = [];
       querySnapshot.forEach((doc) => {

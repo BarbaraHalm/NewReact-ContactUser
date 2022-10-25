@@ -4,6 +4,8 @@ import { Modal } from 'react-bootstrap'
 import EditContactForm from './EditContactForm';
 import {connect} from 'react-redux';
 import {deleteContact} from '../Action/ContactAction'
+import { doc, deleteDoc } from "firebase/firestore";
+import { db } from '../Firebase/ConfigContact';
 
 const ContactUsers = (props) => {
     const [show, setShow] = useState(false);
@@ -11,10 +13,13 @@ const ContactUsers = (props) => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const HandleDelete = (e) => {
+    const HandleDelete = async(e) => {
       e.preventDefault();
-      props.deleteContact(props.userData.id)
-    }
+      try{
+        await deleteDoc(doc(db, "Contact-form", props.userData.id));
+      }catch(e){console.log(e)}
+      //props.deleteContact(props.userData.id)
+    };
 
 
     

@@ -3,7 +3,7 @@ import { Form, Button } from 'react-bootstrap';
 import {connect} from "react-redux";
 import {AddContact} from "../Action/ContactAction";
 import {v4 as uuid} from "uuid"; 
-import { doc, setDoc } from "firebase/firestore"; 
+import { doc, setDoc,serverTimestamp } from "firebase/firestore"; 
 import {db} from "../Firebase/ConfigContact";
 
 
@@ -17,10 +17,10 @@ const ContactForm = (props) => {
         //dispatch(AddContact({id:uuid(),name, phonenumber, location}))
             //props.addContact({name,phonenumber,location})
            
-        let newContacts={id:uuid(),name, phonenumber, location};
+        let newContacts={id:uuid(),name, phonenumber, location , timestamp:serverTimestamp()};
            console.log ({id:uuid(), name,  phonenumber, location});
            try{
-           await setDoc(doc(db, "Contact-User",newContacts.id), newContacts);
+           await setDoc(doc(db, "Contact-form",newContacts.id), newContacts);
            }catch(e){
            console.log(e);
         }
