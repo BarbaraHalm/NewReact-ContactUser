@@ -1,13 +1,16 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect } from 'react';
-import { Col, Container, Row } from 'react-bootstrap'
-import  Contact from "./component/Contact";
-import ContactForm from './component/ContactForm';
-import { collection, query,  onSnapshot,orderBy } from "firebase/firestore";
-import {db} from "./Firebase/ConfigContact";
+import { Container} from 'react-bootstrap'
+// import  Contact from "./component/Contact";
+// import ContactForm from './component/ContactForm';
+import { collection, query,onSnapshot,orderBy} from "firebase/firestore";
+import {db,auth,} from './Firebase/ConfigContact';
 import { AddContact } from './Action/ContactAction';
 import {useDispatch} from 'react-redux';
- 
+import Routing from "./Routing";
+import {newloginContact} from './Action/ContactAuthAction';
+import { onAuthStateChanged } from "firebase/auth";
+
 
 function App() {
   const dispatch= useDispatch();
@@ -26,6 +29,15 @@ function App() {
   }
   readInfo();
  },[dispatch])
+
+ useEffect(()=>{
+  onAuthStateChanged(auth,(contact)=>{
+   if(contact)dispatch(newloginContact(contact));
+   else {dispatch(newloginContact(null))};
+
+  })
+
+},[dispatch])
 
 
 
@@ -67,8 +79,11 @@ function App() {
 
 return (
   <>
-<Container>
- <Row style={{marginTop: "20px"}}>
+
+ <Container>
+  <Routing/>
+  
+ {/* <Row style={{marginTop: "20px"}}>
  <Col md={4}>
  <h3>CONTACT FORM</h3>
  <ContactForm 
@@ -85,8 +100,9 @@ return (
 />
 </Col>
 
- </Row>
-</Container>
+ </Row> */}
+</Container> 
+
   </>
  );
 };

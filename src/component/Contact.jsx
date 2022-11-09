@@ -26,7 +26,7 @@ const Contact = (props) => {
     );
 }
 const mapStateToProps = (state)=> ({
-    contactsData: state.contacts,
+    contactsData: state.ContactReducer.contacts
 }
 )
 export default connect(mapStateToProps)(Contact);
